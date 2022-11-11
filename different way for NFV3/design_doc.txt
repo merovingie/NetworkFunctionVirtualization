@@ -1,0 +1,18 @@
+ARP replies:
+Our design is very similar to that of workshop 2, except this time, we use a dictionary to hold IP address -> MAC address mappings.
+Whenever we receive an ARP request, we search the dictionary using the given destination IP address, and return the saved MAC address if a match is found.
+This dictionary is static and is initialized on startup given our static topology.
+
+Packet handler:
+Our packet handler performs the following steps:
+
+1) Build a flow key based on: IP src/dst and potenitally TCP src/dst port
+2) Select a NF instance based on flow key match/round robin strategy
+3) Determine destination MAC address/Port number based on the port that the packet was received on
+4) Install OF rules to match similar packets in the future
+5) Replay current packet using our calculated dst_mac/output_port actions
+
+The flow key is constructed by strringifying input data, and then sorting it, so that different permutations of the same inputs still generate the same flow key.
+If we have encountered the flow before (as identified by flow key), then we will utilize the routing rules assocated with the previously chosen nf.
+If the flow is new, then we will choose a nf based on a round-robin strategy and save the chosen nf using the generated flow key.
+There are 3 cases to follow when determining routing rules: an interior host, an exterior host, and a nf. All cases will utilize saved routing rules based on the static topology. These routing rules are generated on startup.

@@ -1,0 +1,26 @@
+Sending build context to Docker daemon  895.5kB
+Step 1/8 : FROM ubuntu:trusty
+ ---> 13b66b487594
+Step 2/8 : RUN apt-get update && apt-get install -y iptables-persistent
+ ---> Using cache
+ ---> f07dd5c11043
+Step 3/8 : RUN apt-get install -y wondershaper tcpdump
+ ---> Using cache
+ ---> 2f535092359a
+Step 4/8 : RUN mv /usr/sbin/tcpdump /usr/bin/tcpdump
+ ---> Using cache
+ ---> 5c2d1b331658
+Step 5/8 : RUN mkdir -p /scripts
+ ---> Using cache
+ ---> 15785cd22d3d
+Step 6/8 : COPY init_fw.sh /scripts
+ ---> Using cache
+ ---> 03d8fb1bffa5
+Step 7/8 : WORKDIR /scripts
+ ---> Using cache
+ ---> d6accbd464e9
+Step 8/8 : RUN chmod +x init_fw.sh
+ ---> Using cache
+ ---> 79d3a1690cd3
+Successfully built 79d3a1690cd3
+Successfully tagged fw:latest

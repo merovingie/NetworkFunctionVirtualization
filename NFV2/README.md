@@ -1,0 +1,3 @@
+# Workshop 2 : SDN for basic traffic forwarding to NF
+
+Students are supposed to add missing SDN logic into `ryu_app.py`. Utility functions are present in `workshop_parent.py`.
